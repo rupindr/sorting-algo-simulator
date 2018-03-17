@@ -1,0 +1,115 @@
+/*
+	Copyright 2018 Rupinder Singh
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
+
+/* common */
+body, html{
+	background-color: #eee;
+	height: 100%;
+}
+.container-fluid{
+	height: 100%;
+}
+
+/*  nav */
+#nav{
+	background-color: #45f;
+	padding: 10px 30px;
+	color: #fff;
+}
+#logo{
+	font-size: 20px;
+	font-weight: bold;
+}
+#algorithm{
+	width: 100%;
+}
+
+/* main */
+#main{
+	height: 55%;
+	position: relative;
+}
+.data-bar {
+    background-color: green;
+    height: 400px;
+    display: inline-block;
+    width: 40px;
+    margin: 5px;
+    position: absolute;
+    bottom: 0;
+}
+.data-info{
+    margin-top: -20px;
+    text-align: center;
+}
+.active-bar{
+	background-color: yellow;
+}
+.active-bar-1{
+	background-color: blue;
+}
+.active-bar-2{
+	background-color: red;
+}
+
+/*  controls */
+#controls-wrapper{
+	background-color: #45f;
+	padding: 10px 20px;
+	color: #fff;
+	/*  ToDO make center speed */
+}
+#controls{
+	font-size: 16px;
+}
+#controls input, #controls button{
+	font-size: 14px;
+}
+.speed-btn{
+	display: inline-block;
+	height: 30px;
+	cursor: pointer;
+}
+.speed-controls{
+	text-align: center;
+}
+
+/* media queries */
+@media only screen and ( max-width: 768px ){
+	.speed-controls{
+		padding-top: 10px;
+	}
+}
+
+@media only screen and ( max-width: 576px ){
+	#nav{
+		text-align: center;
+		padding: 5px 10px;
+	}
+	#algorithm{
+		width: 50%;
+	}
+	.speed-controls{
+		text-align: justify;
+		padding-top: 0px;
+	}
+}
+
+@media only screen and ( max-width: 440px ){
+	#algorithm{
+		width: 100%;
+	}
+}

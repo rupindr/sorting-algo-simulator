@@ -1,2 +1,10 @@
-# sorting-algo-simulator
-*This project's code is 4 years old. Rewriting of the code is underway and will be available soon.*
+# sorting-algo-simulator  
+
+This project helps students understand the working of various sorting algorithms.  
+
+## ToDo:  
+
+* Add info about the algorithms  
+* Add insertion sort  
+* Add quick sort  
+* Add merge sort  

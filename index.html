@@ -1,95 +1,63 @@
+<!--Copyright 2018 Rupinder Singh
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License. -->
+
 <!doctype html>
 <html lang="en">
-  	<head>
-	    <meta charset="utf-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<!-- Fonts -->
-		<link href='./khand.css' rel='stylesheet' type='text/css'>
-		<!-- Style Sheets -->
-		<link rel="stylesheet" href="./style.css">
-
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="This will be shown in search engine.">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title>Sorting Algorithm Simulator</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" type="text/css">
+		<link rel="stylesheet" href="./stylesheets/style.css" type="text/css">
 	</head>
 	<body>
-
-		<div id="loader">
-			<img src="./icons/loading.gif" alt="Loading">
-		</div>
-
-		<div id="main">
-			<div id="info">
-
-			</div>
-			<div id="infobtns">
-				<img src="./icons/info.svg" alt="">
-			</div>
-		</div>
-
-		<div id="controls">
-
-			<div id="about">
-				<img alt="logo" id="logo" src="./icons/logo.svg">
-				<span>Sorting Algorithm Simulator</span>
-			</div>
-
-			<div id="cont">
-				<div id="cont1" class="contchild">
-					<span id="alg" class="cont1pad">Algorithm:</span>
-					<span id="dropdown" class="cont1pad">Selection Sort</span>
-					<div class="dropdown-content">
-						<!--List Items-->
-					</div>
-					<img class="cont1pad downbtn openbtn" src="./icons/downarrow.png" alt="list">
-					<img class="cont1pad downbtn closebtn hidebtn" src="./icons/cross.svg" alt="list">
+		<div class="container-fluid">
+			<div id="nav" class="row">
+				<div id="logo" class="col-12 col-sm-6">
+					Sorting Algorithm Simulator
 				</div>
-
-				<div id="cont2" class="contchild">
-					<div id="speedcontrol" class="noselect">
-						<span id="spd" class="cont1pad">Speed:</span>
-						<img id="speeddec" class="incdec cont1pad" src="./icons/minus.svg"alt="dec">
-						<span id="speed" class="cont1pad infobox">1</span>
-						<img id="speedinc" class="incdec cont1pad" src="./icons/plus.png"alt="inc">
-					</div>
-					<div id="nob" class="noselect">
-						<span id="databars" class="cont1pad">Bars:</span>
-						<img id="databarsdec" class="incdec cont1pad" src="./icons/minus.svg"alt="dec">
-						<span id="barsinfobox" class="cont1pad infobox">100</span>
-						<img id="databarsinc" class="incdec cont1pad" src="./icons/plus.png"alt="inc">
-					</div>
+				<div class="col-12 col-sm-4 offset-sm-2 col-md-3 offset-md-3">
+					<select name="algorithm" id="algorithm">
+						<option value="selection">Selection Sort</option>
+						<!-- <option value="insertion">Insertion Sort</option>
+						<option value="quick">Quick Sort</option> -->
+					</select>
 				</div>
-
-				<div id="cont3" class="contchild">
-					<div id="btns">
-						<button id="mainbtn" class="cont1pad">Start</button>
-					</div>
-					<div id="social">
-						<!-- <img src="./icons/email.png" alt="at" class="sm" id="smat"> -->
-						<a href="https://www.linkedin.com/in/singhrupi" target="_blank">
-							<img src="./icons/in-white.svg" alt="in" class="sm" id="smin">
-						</a>
-						<a href="https://codepen.io/rupindersingh" target="_blank">
-							<img src="./icons/pen-white.svg" alt="pen" class="sm" id="smpen">
-						</a>
-						<a href="https://github.com/rupindr" target="_blank">
-							<img src="./icons/github-white.svg" alt="git" class="sm" id="smgit">
-						</a>
-					</div>
-				</div>
-
 			</div>
-
+			<div id="main">
+				
+			</div>
+			<div id="controls-wrapper" class="row">
+				<form id="controls" class="row col-12">
+					<div class="col-12 col-sm-6 col-md-4">
+						<label for="bars">Number of bars:</label>
+						<input name="bars" placeholder="15" type="number" min="10" max="20"  step="1" value="15"/>
+					</div>
+					<div class="col-12 col-sm-6 col-md-4">
+						<label for="speed">Speed:</label>
+						<input name="speed" placeholder="10" type="number" min="1" max="20" step="1" value="10"/>
+					</div>
+					<div class="col-12 col-sm-12 col-md-4 speed-controls">
+						<input type="button" name="play" class="speed-btn" value="play"></input>
+						<input type="button" name="next" class="speed-btn" value="next"></input>
+						<input type="button" name="reset" class="speed-btn" value="reset"></input>
+					</div>
+				</form>
+			</div>
 		</div>
-
-		<div id="emailcover">
-			<span>singhrupinder@outlook.in</span>
-			<img alt="close" src="./icons/cross.svg">
-		</div>
-	
-		
-
-		
-		<!-- Scripts -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script src="./script.js"></script>
+		<script src="./scripts/script.js"></script>
 	</body>
 </html>
