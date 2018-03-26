@@ -14,65 +14,6 @@
    limitations under the License.
 */
 
-var algorithm = function(name, speed, ui){
-	this.state = {};
-	this.color = {};
-	this.next = {};
-	this.speed = speed;
-	this.timer = true;
-	this.setValue = function(prop, val){
-		if(this.color[prop] != 'undefined'){
-			ui.deActivate(this.state[prop], this.color[prop]);
-			this.state[prop] = val;
-			ui.activate(this.state[prop], this.color[prop]);
-		}
-		else{
-			this.state[prop] = val;
-		}
-	}
-	this.stop = function(){
-		this.timer = false;
-	};
-	if(name == 'selection'){
-		this.state = {i:0, j:-1, min:0};
-		this.color = {i:1, j:2, min:0};
-		this.next = function(){
-			if(this.state.i < ui.data.length){
-				if(this.state.j < 0){
-					this.setValue('min', this.state.i);
-					this.setValue('j', this.state.i + 1);
-				}
-				else if(this.state.j < ui.data.length){
-					if(ui.data[this.state.j] < ui.data[this.state.min]){
-						this.setValue('min', this.state.j);
-					}
-					this.setValue('j', this.state.j + 1);
-				}
-				else{
-					var t = ui.data[this.state.i];
-					ui.data[this.state.i] = ui.data[this.state.min];
-					ui.data[this.state.min] = t;
-					ui.swap(this.state.i, this.state.min);
-					this.state.i = this.state.i + 1;
-					this.setValue('j', -1);
-					ui.activate(this.state.i - 1, this.color['i']);
-				}
-			}
-			else{
-				this.stop();
-			}
-		}
-	}
-	this.play = function(){
-		setTimeout(() => {
-			if(this.timer){
-				this.next();
-				this.play();
-			}
-		}, 1000/this.speed);
-	};
-};
-
 var uiHelper = function(noOfBars){
 	var mainEle = document.getElementById('main');
 	var controls = document.getElementById('controls');
@@ -92,6 +33,19 @@ var uiHelper = function(noOfBars){
 	this.getBarFromIndex = function(i){
 		if(i > -1 && i < barIds.length){
 			return document.getElementById(barIds[i]);
+		}
+	}
+
+	this.moveTo= function(i, j){
+		var barI = this.getBarFromIndex(i);
+		if(barI){
+			if(j < this.data.length){
+				this.animate(this.getBarFromIndex(i), { left: j*(barWidth + 2*barMargin) }, 70);
+			}
+			else{
+				this.animate(this.getBarFromIndex(i), { left: 0 - 2*(barWidth + 2*barMargin) }, 70);
+			}
+			barIds[j] = barIds[i];
 		}
 	}
 
@@ -178,7 +132,7 @@ var uiHelper = function(noOfBars){
 		for(var i = 0; i < noOfBars; i++){
 			var bar = document.createElement('div');
 			var info = document.createElement('div');
-			var val = Math.floor(Math.random()*500);
+			var val = Math.floor(Math.random()*400);
 			bar.className += ' data-bar';
 			bar.style.height = val + 'px';
 			bar.style.width = barWidth + 'px';
@@ -193,6 +147,11 @@ var uiHelper = function(noOfBars){
 			this.data.push(val);
 		}
 	}
+
+	this.getMainHeight = function(){
+		return mainEle.style.height;
+	}
+
 	this.getBarFromDataId = this.getBarFromDataId.bind(this);
 	this.getBarFromIndex = this.getBarFromIndex.bind(this);
 	this.swap = this.swap.bind(this);
@@ -202,6 +161,7 @@ var uiHelper = function(noOfBars){
 	this.animate = this.animate.bind(this);
 	this.fixMainWidth = this.fixMainWidth.bind(this);
 	this.loadBars = this.loadBars.bind(this);
+	this.getMainHeight = this.getMainHeight.bind(this);
 	window.addEventListener('resize', () => { this.fixMainWidth(); });
 	this.loadBars();
 	this.fixMainWidth();
@@ -209,6 +169,7 @@ var uiHelper = function(noOfBars){
 
 var simulator = function(){
 	var controls = document.getElementById('controls');
+	var algorithmName = document.getElementById('algorithm');
 	var ui;
 	var algo;
 	function reload(){
@@ -216,7 +177,7 @@ var simulator = function(){
 			algo.stop();
 		}
 		ui = new uiHelper(parseInt(controls.bars.value));
-		algo = new algorithm('selection', parseInt(controls.speed.value), ui);
+		algo = new algorithm(algorithmName.value, parseInt(controls.speed.value), ui);
 		controls.next.disabled = '';
 		controls.play.disabled = '';
 	}
@@ -226,21 +187,31 @@ var simulator = function(){
 		controls.play.disabled = 'true';
 		algo.play();
 	});
+
 	controls.next.addEventListener('click', function(){ algo.next() });
+
 	controls.reset.addEventListener('click', function(){
 		reload();
 	});
+
 	controls.speed.onchange = function(){
 		if(parseInt(controls.speed.value) > 20){ controls.speed.value = "20"; }
 		if(parseInt(controls.speed.value) < 1){ controls.speed.value = "1"; }
 		algo.speed = parseInt(controls.speed.value);
 	};
+
 	controls.bars.onchange = function(){
 		if(parseInt(controls.bars.value) > 20){ controls.bars.value = "20"; }
 		else if(parseInt(controls.bars.value) < 10){ controls.bars.value = "10"; }
 		reload();
 	};
+
+	algorithmName.onchange = function(){
+		reload();
+	}
+
 	reload();
+	return ui;
 }
 
-simulator();
+var sim = simulator();
